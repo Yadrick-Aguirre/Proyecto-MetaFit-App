@@ -5,110 +5,71 @@ import java.sql.Date
 
 class Person {
 
-    private var id: String=""
-    private var name: String=""
-    private var fLastname: String=""
-    private var sLastname: String=""
-    private var phone: Int= 0
-    private var email: String=""
+    private var id: String = ""
+    private var name: String = ""
+    private var fullLast_name: String = ""
+    private lateinit var nacionality: Country
     private lateinit var birthday: Date
-    private lateinit var province: Province
-    private var state: String=""
-    private var district: String=""
-    private var address: String=""
-    private var latitude: Int=0
-    private var longitude:Int=0
-    private  var photo: Bitmap?
+    private var gender: String = ""
+    private var weigth: Int = 0
+    private var photo: Bitmap? = null
 
-    constructor(id: String, name: String, fLastname: String, sLastname: String,
-                phone: Int, email: String, birthday: Date,
-                province: Province, state: String, district: String, address: String, latitude: Int,
-                longitude: Int, photo: Bitmap?)
-    {
-        this.id=id
-        this.name=name
-        this.fLastname=fLastname
-        this.sLastname=sLastname
-        this.phone=phone
-        this.email=email
-        this.birthday=birthday
-        this.province=province
-        this.state=state
-        this.district=district
-        this.address=address
-        this.latitude=latitude
-        this.longitude=longitude
-        this.photo=photo
+    // CONSTRUCTOR CON fullLast_name
+    constructor(
+        id: String,
+        name: String,
+        fullLast_name: String,
+        nacionality: Country,
+        birthday: Date,
+        gender: String,
+        weigth: Int,
+        photo: Bitmap?
+    ) {
+        this.id = id
+        this.name = name
+        this.fullLast_name = fullLast_name
+        this.nacionality = Nacionality
+        this.birthday = birthday
+        this.gender = gender
+        this.weigth = weigth
+        this.photo = photo
     }
 
+    // GETTERS Y SETTERS
     var ID: String
         get() = this.id
-        set(value){this.id=value}
-
+        set(value) { this.id = value }
 
     var Name: String
         get() = this.name
-        set(value){this.name=value}
+        set(value) { this.name = value }
 
+    var FullLast_name: String
+        get() = this.fullLast_name
+        set(value) { this.fullLast_name = value }
 
-    var FLastName: String
-        get() = this.fLastname
-        set(value) {this.fLastname=value}
-
-    var SLastName: String
-        get() = this.sLastname
-        set(value) {this.sLastname=value}
-
-
-    var Phone: Int
-        get() = this.phone
-        set(value) {this.phone=value}
-
-
-    var Email: String
-        get() = this.Email
-        set(value) {this.Email=value}
-
+    var Nacionality: Country
+        get() = this.nacionality
+        set(value) { this.nacionality = value }
 
     var Birthday: Date
         get() = this.birthday
-        set(value) {this.birthday=value}
+        set(value) { this.birthday = value }
 
-    var Province: Province
-        get() = this.province
-        set(value) {this.province=value}
+    var Gender: String
+        get() = this.gender
+        set(value) { this.gender = value }
 
-
-    var State: String
-        get() = this.State
-        set(value) {this.state=value}
-
-    var District: String
-        get() = this.district
-        set(value) {this.district=value}
-
-    var Address: String
-        get() = this.address
-        set(value) {this.address=value}
-
-
-    var Latitude: Int
-        get() = this.latitude
-        set(value) {this.latitude=value}
-
-
-    var Longitude: Int
-        get() = this.longitude
-        set(value) {this.longitude=value}
-
+    var Weigth: Int
+        get() = this.weigth
+        set(value) { this.weigth = value }
 
     var Photo: Bitmap?
         get() = this.photo
-        set(value) {this.photo=value}
+        set(value) { this.photo = value }
 
-
-    fun FullName() = "$this.name $this.fLastName $this.SLastName"
-
-
-
+    // MÉTODO FullName() CON fullLast_name
+    fun FullName(): String {
+        return "$name $fullLast_name"
+    }
 }

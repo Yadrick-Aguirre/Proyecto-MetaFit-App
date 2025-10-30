@@ -6,4 +6,7 @@
     <string name="ErrorMsgGetAll">Error al Obtener la Lista de Datos</string>
     <string name="ErrorMsgGetByid">Error al Obtener Dato Especifico</string>
     <string name="ErrorMsgDataNoFound">El Dato no fue encontrado</string>
+    <string name="ErrorMsgAddPhoto">Error al agregar la foto</string>
+    <string name="ErrorMsgUpdatePhoto">Error al actualizar la foto</string>
+    <string name="ErrorMsgDeletePhoto">Error al eliminar la foto</string>
 </resources>
