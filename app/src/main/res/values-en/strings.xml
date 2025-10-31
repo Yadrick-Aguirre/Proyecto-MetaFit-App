@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MundoFit-App</string>
+    <string name="ErrorMsgAdd">Error adding</string>
+    <string name="ErrorMsgUpdate">Error Updaning</string>
+    <string name="ErrorMsgRemove">Error Removing</string>
+    <string name="ErrorMsgGetAll">Error Getting the Data List</string>
+    <string name="ErrorMsgGetByid">Error Getting a Specific Data</string>
+    <string name="ErrorMsgDataNoFound">Data Not Found</string>
+    <string name="ErrorMsgAddPhoto">Error adding Photo</string>
+    <string name="ErrorMsgUpdatePhoto">Error Updanning Photo</string>
+    <string name="ErrorMsgDeletePhoto">Error Removing Photo</string>
+</resources>
