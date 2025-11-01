@@ -1,33 +1,35 @@
 package ac.cr.utn.mundofit_app
 
-import Util.Util
 import android.os.Bundle
-import android.view.View
-import android.widget.Button
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-class MainActivity : AppCompatActivity() {
+class MenuActivity : AppCompatActivity() {
+
+    private lateinit var textNameUser: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_menu)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        val btnRegisterActivity = findViewById<Button>(R.id.btnRegister)
-        btnRegisterActivity.setOnClickListener(View.OnClickListener{ view ->
-            Util.openActivity(this, RegisterActivity::class.java)
-        })
+        // Vincular TextView
+        textNameUser = findViewById(R.id.textNameUser)
 
-        val btnLoginActivity = findViewById<Button>(R.id.btnLogin)
-        btnLoginActivity.setOnClickListener(View.OnClickListener{ view ->
-            Util.openActivity(this, LoginActivity::class.java)
-        })
+
+        val sharedPref = getSharedPreferences("UserData", MODE_PRIVATE)
+        val userName = sharedPref.getString("user_name", "Usuario") ?: "Usuario"
+
+        // Mostrar nombre
+        textNameUser.text = "¡Hola, $userName!"
     }
 }

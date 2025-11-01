@@ -9,4 +9,16 @@
     <string name="ErrorMsgAddPhoto">Error al agregar la foto</string>
     <string name="ErrorMsgUpdatePhoto">Error al actualizar la foto</string>
     <string name="ErrorMsgDeletePhoto">Error al eliminar la foto</string>
+    <string name="ButtonLogin">Iniciaar Sesion</string>
+    <string name="ButtonSignIN">Registrarse</string>
+    <string name="EnterInformatiom">Ingrese su Informacion</string>
+    <string name="EnterId">ID</string>
+    <string name="EnterName">Nombre</string>
+    <string name="EnterFullLasName">Apellidos</string>
+    <string name="EnterNacionality">Nacionalidad</string>
+    <string name="EnterAge">Edad</string>
+    <string name="EnterGender">Genero</string>
+    <string name="EnterWeight">Peso</string>
+    <string name="ButtonRegister">Aceptar</string>
+    <string name="TextMenu">¿Como Quieres Empezar?</string>
 </resources>
