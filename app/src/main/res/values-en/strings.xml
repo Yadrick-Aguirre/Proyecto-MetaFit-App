@@ -10,4 +10,16 @@
     <string name="ErrorMsgAddPhoto">Error adding Photo</string>
     <string name="ErrorMsgUpdatePhoto">Error Updanning Photo</string>
     <string name="ErrorMsgDeletePhoto">Error Removing Photo</string>
+    <string name="ButtonLogin">Login</string>
+    <string name="ButtonSignIN">Sign In</string>
+    <string name="EnterInformatiom">Enter your Information</string>
+    <string name="EnterId">ID</string>
+    <string name="EnterName">Name</string>
+    <string name="EnterFullLasName">Full Last Name</string>
+    <string name="EnterNacionality">Nacionality</string>
+    <string name="EnterAge">Age</string>
+    <string name="EnterGender">Gender</string>
+    <string name="EnterWeight">Weight</string>
+    <string name="ButtonRegister">Accept</string>
+    <string name="TextMenu">¿How Do you Want to Star?</string>
 </resources>

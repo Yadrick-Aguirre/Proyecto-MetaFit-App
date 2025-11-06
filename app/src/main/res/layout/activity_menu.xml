@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8FAFC"
+    android:padding="16dp"
+    tools:context=".MenuActivity">
+
+    <!-- SALUDO AL USUARIO -->
+    <TextView
+        android:id="@+id/textNameUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="¡Hola, Usuario!"
+        android:textColor="#1E293B"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- TÍTULO DEL MENÚ -->
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/TextMenu"
+        android:textColor="#64748B"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/textNameUser"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- FILA 1 -->
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="134dp"
+        android:layout_height="124dp"
+        android:scaleType="centerCrop"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        app:srcCompat="@drawable/imagen1"
+        app:layout_constraintTop_toBottomOf="@id/textView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/imageButton3"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp" />
+
+    <ImageButton
+        android:id="@+id/imageButton3"
+        android:layout_width="134dp"
+        android:layout_height="124dp"
+        android:scaleType="centerCrop"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        app:srcCompat="@drawable/imagen2"
+        app:layout_constraintTop_toTopOf="@id/imageButton2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imageButton2"
+        android:layout_marginStart="8dp" />
+
+    <!-- FILA 2 -->
+    <ImageButton
+        android:id="@+id/imageButton4"
+        android:layout_width="134dp"
+        android:layout_height="124dp"
+        android:scaleType="centerCrop"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        app:srcCompat="@drawable/imagen3"
+        app:layout_constraintTop_toBottomOf="@id/imageButton2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/imageButton5"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp" />
+
+    <ImageButton
+        android:id="@+id/imageButton5"
+        android:layout_width="134dp"
+        android:layout_height="124dp"
+        android:scaleType="centerCrop"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        app:srcCompat="@drawable/imagen4"
+        app:layout_constraintTop_toTopOf="@id/imageButton4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imageButton4"
+        android:layout_marginStart="8dp" />
+
+    <!-- FILA 3 -->
+    <ImageButton
+        android:id="@+id/imageButton6"
+        android:layout_width="134dp"
+        android:layout_height="124dp"
+        android:scaleType="centerCrop"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        app:srcCompat="@drawable/imagen5"
+        app:layout_constraintTop_toBottomOf="@id/imageButton4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/imageButton7"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp" />
+
+    <ImageButton
+        android:id="@+id/imageButton7"
+        android:layout_width="134dp"
+        android:layout_height="124dp"
+        android:scaleType="centerCrop"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        app:srcCompat="@drawable/imagen6"
+        app:layout_constraintTop_toTopOf="@id/imageButton6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imageButton6"
+        android:layout_marginStart="8dp" />
+
+    <!-- FILA 4 -->
+    <ImageButton
+        android:id="@+id/imageButton8"
+        android:layout_width="134dp"
+        android:layout_height="124dp"
+        android:scaleType="centerCrop"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        app:srcCompat="@drawable/imagen7"
+        app:layout_constraintTop_toBottomOf="@id/imageButton6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/imageButton9"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp" />
+
+    <ImageButton
+        android:id="@+id/imageButton9"
+        android:layout_width="134dp"
+        android:layout_height="124dp"
+        android:scaleType="centerCrop"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        app:srcCompat="@drawable/imagen8"
+        app:layout_constraintTop_toTopOf="@id/imageButton8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imageButton8"
+        android:layout_marginStart="8dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
