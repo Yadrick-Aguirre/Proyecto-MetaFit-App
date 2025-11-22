@@ -1,21 +1,25 @@
 package ac.cr.utn.mundofit_app
 
+import android.Manifest
+import android.app.AlertDialog
 import android.app.DatePickerDialog
-import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.*
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -35,15 +39,35 @@ class RegisterActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
     private var month = 0
     private var year = 0
     private var isEditMode = false
-    private var userPhoto: Bitmap? = null
 
     private val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
 
-    private val cameraLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == RESULT_OK) {
-            val photo = result.data?.extras?.get("data") as Bitmap
-            userPhoto = photo
-            imageButtonCamera.setImageBitmap(photo)
+    // PERMISOS + CÁMARA + GALERÍA
+    private val permissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        if (permissions[Manifest.permission.CAMERA] == true) {
+            takePhoto()
+        } else if (permissions[Manifest.permission.READ_MEDIA_IMAGES] == true ||
+            permissions[Manifest.permission.READ_EXTERNAL_STORAGE] == true) {
+            openGallery()
+        } else {
+            Toast.makeText(this, "Permisos necesarios denegados", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private val takePhotoLauncher = registerForActivityResult(ActivityResultContracts.TakePicturePreview()) { bitmap ->
+        bitmap?.let { setUserPhoto(it) }
+    }
+
+    private val pickGalleryLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+        uri?.let {
+            try {
+                val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, it)
+                setUserPhoto(bitmap)
+            } catch (e: Exception) {
+                Toast.makeText(this, "Error al cargar imagen", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -56,9 +80,9 @@ class RegisterActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+
         }
 
-        // VINCULAR VISTAS
         editTextId = findViewById(R.id.editTextId)
         editTextName = findViewById(R.id.editTextText8)
         editTextLastnames = findViewById(R.id.editTextText9)
@@ -69,10 +93,9 @@ class RegisterActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
         btnSearchId = findViewById(R.id.btnSearchId)
         imageButtonCamera = findViewById(R.id.imageButton)
 
-        // FLECHA DE VOLVER
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        // BUSCAR CON LUPA
+
         btnSearchId.setOnClickListener { searchPerson() }
         editTextId.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -82,24 +105,94 @@ class RegisterActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
-        // CALENDARIO
         lbBirthdate.setOnClickListener { showDatePickerDialog() }
-        findViewById<ImageButton>(R.id.btnCalendar).setOnClickListener { showDatePickerDialog() }
+        findViewById<ImageButton>(R.id.btnCalendar)?.setOnClickListener { showDatePickerDialog() }
 
-        // CÁMARA
+
         imageButtonCamera.setOnClickListener {
-            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            cameraLauncher.launch(intent)
+            showPhotoOptions()
         }
 
         resetDate()
+        loadSavedPhoto()
     }
 
-    private fun getDateString(day: Int, month: Int, year: Int): String {
-        return String.format("%02d/%02d/%04d", day, month, year)
+    private fun showPhotoOptions() {
+        val options = arrayOf("Tomar foto", "Elegir de galería", "Cancelar")
+        AlertDialog.Builder(this)
+            .setTitle("Foto de perfil")
+            .setItems(options) { _, which ->
+                when (which) {
+                    0 -> requestCameraPermission()
+                    1 -> requestGalleryPermission()
+                }
+            }
+            .show()
     }
 
-    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+    private fun requestCameraPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+            takePhoto()
+        } else {
+            permissionLauncher.launch(arrayOf(Manifest.permission.CAMERA))
+        }
+    }
+
+    private fun requestGalleryPermission() {
+        val permission = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+            Manifest.permission.READ_MEDIA_IMAGES
+        } else {
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        }
+
+        if (ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED) {
+            openGallery()
+        } else {
+            permissionLauncher.launch(arrayOf(permission))
+        }
+    }
+
+    private fun takePhoto() {
+        takePhotoLauncher.launch(null)
+    }
+
+    private fun openGallery() {
+        pickGalleryLauncher.launch("image/*")
+    }
+
+    private fun setUserPhoto(bitmap: Bitmap) {
+        imageButtonCamera.setImageBitmap(bitmap)
+        savePhotoToSharedPreferences(bitmap)
+    }
+
+    private fun savePhotoToSharedPreferences(bitmap: Bitmap) {
+        val baos = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos)
+        val photoString = android.util.Base64.encodeToString(baos.toByteArray(), android.util.Base64.DEFAULT)
+        getSharedPreferences("UserData", MODE_PRIVATE).edit()
+            .putString("user_photo", photoString)
+            .apply()
+    }
+
+    private fun loadSavedPhoto() {
+        if (!isEditMode) return
+
+        val sp = getSharedPreferences("UserData", MODE_PRIVATE)
+        val photoString = sp.getString("user_photo", null) ?: return
+        try {
+            val bytes = android.util.Base64.decode(photoString, android.util.Base64.DEFAULT)
+            val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+            imageButtonCamera.setImageBitmap(bitmap)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+
+    private fun getDateString(day: Int, month: Int, year: Int): String =
+        String.format("%02d/%02d/%04d", day, month, year)
+
+    override fun onDateSet(view: android.widget.DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         lbBirthdate.text = getDateString(dayOfMonth, month + 1, year)
     }
 
@@ -133,6 +226,9 @@ class RegisterActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
             lbBirthdate.text = sp.getString("user_birthdate", "")
             editTextGender.setText(sp.getString("user_gender", ""))
             editTextWeight.setText(sp.getString("user_weight", ""))
+
+            loadSavedPhoto()
+
             Toast.makeText(this, "Usuario encontrado", Toast.LENGTH_SHORT).show()
             invalidateOptionsMenu()
         }
@@ -148,7 +244,9 @@ class RegisterActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
         lbBirthdate.text = ""
         editTextGender.text.clear()
         editTextWeight.text.clear()
-        imageButtonCamera.setImageResource(android.R.drawable.ic_menu_camera)
+
+        imageButtonCamera.setImageResource(R.drawable.ic_camera_placeholder)
+
         resetDate()
         invalidateOptionsMenu()
     }
@@ -179,7 +277,6 @@ class RegisterActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
         Toast.makeText(this, "Usuario eliminado", Toast.LENGTH_SHORT).show()
     }
 
-    // MENÚ CRUD
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_crud, menu)
         menu?.findItem(R.id.mnuDelete)?.isVisible = isEditMode
@@ -187,12 +284,14 @@ class RegisterActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> { finish(); true }
-            R.id.mnuSave -> { savePerson(); true }
-            R.id.mnuDelete -> { deletePerson(); true }
-            R.id.mnuCancel -> { cleanScreen(); true }
-            else -> super.onOptionsItemSelected(item)
+        when (item.itemId) {
+            R.id.mnuSave -> { savePerson(); return true }
+            R.id.mnuDelete -> { deletePerson(); return true }
+            R.id.mnuCancel -> { cleanScreen(); return true }
+            android.R.id.home -> { finish(); return true }
         }
+        return super.onOptionsItemSelected(item)
     }
+
+
 }

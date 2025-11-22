@@ -2,6 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -11,8 +19,35 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MundoFitApp"
-        tools:targetApi="31">
+        android:requestLegacyExternalStorage="true"
+        tools:targetApi="34">
 
+        <activity
+            android:name=".RussianTwistActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DynamicPlankActivity"
+            android:exported="false" />
+        <activity
+            android:name=".KneePushUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".OpenPlankActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SidePlankActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PlankActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PushUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LegRaiseActivity"
+            android:exported="false" />
+
+        <!-- MAIN ACTIVITY (LA QUE SE ABRE AL INICIAR) -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -22,35 +57,20 @@
             </intent-filter>
         </activity>
 
-        <!-- LOGIN ACTIVITY -->
+        <!-- LOGIN, REGISTER Y MENU -->
         <activity
             android:name=".LoginActivity"
             android:exported="false"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
-
-        <!-- REGISTER ACTIVITY -->
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".RegisterActivity"
             android:exported="false"
-            android:parentActivityName=".LoginActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".LoginActivity" />
-        </activity>
-
-        <!-- MENU ACTIVITY -->
+            android:parentActivityName=".LoginActivity" />
         <activity
             android:name=".MenuActivity"
             android:exported="false"
-            android:parentActivityName=".LoginActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".LoginActivity" />
-        </activity>
+            android:parentActivityName=".LoginActivity" />
 
     </application>
+
 </manifest>
