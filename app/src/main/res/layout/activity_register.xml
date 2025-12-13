@@ -5,33 +5,36 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8FAFC"
+    android:background="#00FD0000"
     android:padding="20dp"
     tools:context=".RegisterActivity">
 
-
     <!-- TÍTULO -->
+
+    <!-- TABLE LAYOUT -->
+
     <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:text="Ingrese su información"
         android:textColor="#1E293B"
         android:textSize="22sp"
         android:textStyle="bold"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- TABLE LAYOUT -->
     <TableLayout
+        android:id="@+id/tableLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        app:layout_constraintTop_toBottomOf="@id/textView7"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/textView7">
 
         <!-- ID CON LUPA -->
         <TableRow>
@@ -48,8 +51,8 @@
                 android:layout_height="48dp"
                 android:layout_weight="1"
                 android:backgroundTint="#E2E8F0"
-                android:orientation="horizontal"
                 android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:paddingStart="12dp"
                 android:paddingEnd="8dp">
 
@@ -58,9 +61,11 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@null"
+                    android:background="#19404040"
                     android:inputType="number"
-                    android:textSize="16sp" />
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:visibility="visible" />
 
                 <ImageButton
                     android:id="@+id/btnSearchId"
@@ -74,40 +79,83 @@
 
         <!-- NOMBRE -->
         <TableRow android:layout_marginTop="12dp">
-            <TextView android:text="Nombre" android:textColor="#1E293B" android:textSize="16sp" android:layout_marginEnd="16dp" />
-            <EditText android:id="@+id/editTextText8" android:layout_width="0dp" android:layout_height="48dp" android:layout_weight="1"
-                android:backgroundTint="#E2E8F0" android:inputType="textPersonName" android:padding="12dp" android:textSize="16sp" />
+
+            <TextView
+                android:layout_marginEnd="16dp"
+                android:text="Nombre"
+                android:textColor="#1E293B"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/editTextText8"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:backgroundTint="#404040"
+                android:inputType="textPersonName"
+                android:padding="12dp"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
         </TableRow>
 
         <!-- APELLIDOS -->
         <TableRow android:layout_marginTop="12dp">
-            <TextView android:text="Apellidos" android:textColor="#1E293B" android:textSize="16sp" android:layout_marginEnd="16dp" />
-            <EditText android:id="@+id/editTextText9" android:layout_width="0dp" android:layout_height="48dp" android:layout_weight="1"
-                android:backgroundTint="#E2E8F0" android:inputType="textPersonName" android:padding="12dp" android:textSize="16sp" />
+
+            <TextView
+                android:layout_marginEnd="16dp"
+                android:text="Apellidos"
+                android:textColor="#1E293B"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/editTextText9"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:backgroundTint="#404040"
+                android:inputType="textPersonName"
+                android:padding="12dp"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
         </TableRow>
 
         <!-- NACIONALIDAD -->
         <TableRow android:layout_marginTop="12dp">
-            <TextView android:text="Nacionalidad" android:textColor="#1E293B" android:textSize="16sp" android:layout_marginEnd="16dp" />
-            <EditText android:id="@+id/editTextText10" android:layout_width="0dp" android:layout_height="48dp" android:layout_weight="1"
-                android:backgroundTint="#E2E8F0" android:inputType="text" android:padding="12dp" android:textSize="16sp" />
+
+            <TextView
+                android:layout_marginEnd="16dp"
+                android:text="Nacionalidad"
+                android:textColor="#1E293B"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/editTextText10"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:backgroundTint="#404040"
+                android:inputType="text"
+                android:padding="12dp"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
         </TableRow>
 
         <!-- FECHA DE NACIMIENTO -->
         <TableRow android:layout_marginTop="12dp">
+
             <TextView
+                android:layout_marginEnd="16dp"
                 android:text="Fecha de nacimiento"
                 android:textColor="#1E293B"
-                android:textSize="16sp"
-                android:layout_marginEnd="16dp" />
+                android:textSize="16sp" />
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_weight="1"
                 android:backgroundTint="#E2E8F0"
-                android:orientation="horizontal"
                 android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:paddingStart="12dp"
                 android:paddingEnd="8dp">
 
@@ -116,9 +164,10 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@null"
+                    android:background="#23404040"
                     android:gravity="center_vertical"
                     android:paddingStart="12dp"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <ImageButton
@@ -133,35 +182,103 @@
 
         <!-- GÉNERO -->
         <TableRow android:layout_marginTop="12dp">
-            <TextView android:text="Género" android:textColor="#1E293B" android:textSize="16sp" android:layout_marginEnd="16dp" />
-            <EditText android:id="@+id/editTextText12" android:layout_width="0dp" android:layout_height="48dp" android:layout_weight="1"
-                android:backgroundTint="#E2E8F0" android:inputType="text" android:padding="12dp" android:textSize="16sp" />
+
+            <TextView
+                android:layout_marginEnd="16dp"
+                android:text="Género"
+                android:textColor="#1E293B"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/editTextText12"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:backgroundTint="#404040"
+                android:inputType="text"
+                android:padding="12dp"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
         </TableRow>
 
         <!-- PESO -->
         <TableRow android:layout_marginTop="12dp">
-            <TextView android:text="Peso (kg)" android:textColor="#1E293B" android:textSize="16sp" android:layout_marginEnd="16dp" />
-            <EditText android:id="@+id/editTextText13" android:layout_width="0dp" android:layout_height="48dp" android:layout_weight="1"
-                android:backgroundTint="#E2E8F0" android:inputType="numberDecimal" android:padding="12dp" android:textSize="16sp" />
+
+            <TextView
+                android:layout_marginEnd="16dp"
+                android:text="Peso (kg)"
+                android:textColor="#1E293B"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/editTextText13"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:backgroundTint="#404040"
+                android:inputType="numberDecimal"
+                android:padding="12dp"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
         </TableRow>
 
         <!-- FOTO -->
-        <TableRow android:layout_marginTop="24dp" android:gravity="center">
+        <TableRow
+            android:layout_width="351dp"
+            android:layout_height="105dp"
+            android:layout_marginTop="24dp"
+            android:gravity="center">
+
             <ImageButton
                 android:id="@+id/imageButton"
                 android:layout_width="130dp"
                 android:layout_height="130dp"
                 android:layout_marginTop="32dp"
                 android:background="@drawable/circle_image_background"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_camera_placeholder"
                 android:contentDescription="Foto de perfil"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_camera_placeholder" />
         </TableRow>
 
-        <!-- BOTÓN REGISTRAR -->
-        <TableRow android:layout_marginTop="24dp" android:gravity="center"/>
+        <!-- BOTONES GUARDAR, ELIMINAR, CANCELAR -->
+        <TableRow
+            android:layout_marginTop="32dp"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnSave"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:backgroundTint="#2563EB"
+                    android:text="Guardar"
+                    android:textColor="#FFFFFF" />
+
+                <Button
+                    android:id="@+id/btnDelete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:backgroundTint="#EF4444"
+                    android:text="Eliminar"
+                    android:textColor="#FFFFFF"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btnCancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#64748B"
+                    android:text="Cancelar"
+                    android:textColor="#FFFFFF" />
+            </LinearLayout>
+        </TableRow>
+
     </TableLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

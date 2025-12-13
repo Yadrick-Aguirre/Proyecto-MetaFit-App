@@ -1,13 +1,12 @@
 package Models
-import com.google.gson.annotations.SerializedName
 
 data class Users(
-    @SerializedName("cedula") val cedula: String = "",
-    @SerializedName("nombre") val nombre: String = "",
-    @SerializedName("apellidos") val apellidos: String = "",
-    @SerializedName("nacionalidad") val nacionalidad: String? = null,
-    @SerializedName("fechaNacimiento") val fechaNacimiento: String = "",
-    @SerializedName("genero") val genero: String = "",
-    @SerializedName("peso") val peso: String = "",
-    @SerializedName("fotoPerfil") val fotoPerfil: String? = null
+    val cedula: String = "",
+    val nombre: String = "",
+    val apellidos: String = "",
+    val nacionalidad: String? = null,
+    val fechaNacimiento: String = "",
+    val genero: String = "",
+    val peso: String = "",
+    val fotoPerfil: String? = null
 )

@@ -13,7 +13,7 @@
         android:id="@+id/editTextText2"
         android:layout_width="0dp"
         android:layout_height="52dp"
-        android:backgroundTint="#E2E8F0"
+        android:backgroundTint="#0D0C0C"
         android:ems="10"
         android:gravity="center_vertical"
         android:hint="@string/EnterId"

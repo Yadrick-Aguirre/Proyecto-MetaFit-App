@@ -4,7 +4,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
-    private const val BASE_URL = "https://metafit-api.onrender.com" // URL DE MI RENDER
+    private const val BASE_URL = "https://metafit-api.onrender.com/api/"
 
     val apiService: ApiService by lazy {
         Retrofit.Builder()

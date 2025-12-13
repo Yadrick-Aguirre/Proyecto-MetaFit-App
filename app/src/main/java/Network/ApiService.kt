@@ -11,7 +11,7 @@ interface ApiService {
     suspend fun guardarUsuario(@Body usuario: Users): Response<ApiResponse>
 
     @GET("usuarios/{cedula}")
-    suspend fun buscarPorCedula(@Path("cedula") cedula: String): Response<ApiResponse>
+    suspend fun buscarUsuario(@Path("cedula") cedula: String): Response<ApiResponse>
 
     @GET("usuarios")
     suspend fun obtenerTodos(): Response<List<Users>>
