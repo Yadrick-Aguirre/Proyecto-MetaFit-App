@@ -5,7 +5,6 @@ import android.os.Handler
 import android.os.Looper
 import android.widget.Button
 import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -15,17 +14,7 @@ import java.util.concurrent.TimeUnit
 
 class LegRaiseActivity : AppCompatActivity() {
 
-   /* override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_leg_raise)
-
-        findViewById<ImageView>(R.id.gifLegRaise).setImageResource(R.drawable.leg_raise)
-
-        findViewById<ImageButton>(R.id.btnBack).setOnClickListener { finish() }
-    }
-}*/
-   private lateinit var tvTimer: TextView
+    private lateinit var tvTimer: TextView
     private lateinit var tvConsejo: TextView
     private lateinit var btnIniciar: Button
     private lateinit var btnPausar: Button
@@ -48,16 +37,16 @@ class LegRaiseActivity : AppCompatActivity() {
     }
 
     private val consejos = listOf(
-        "Mantén la espalda baja pegada al suelo en todo momento",
-        "Eleva las piernas de forma controlada, sin balancearlas",
-        "Contrae el abdomen antes de levantar las piernas",
-        "Baja las piernas lentamente para mayor efectividad",
-        "Evita arquear la espalda al descender",
-        "Mantén las piernas juntas durante el movimiento",
+        "Mantén la espalda baja pegada al suelo",
+        "Contrae el abdomen como si te fueran a dar un golpe",
+        "Sube las piernas controladamente, no uses impulso",
+        "Mantén las piernas rectas o ligeramente flexionadas",
         "Respira: sube exhalando, baja inhalando",
-        "Si es difícil, flexiona ligeramente las rodillas",
-        "Concéntrate en el abdomen, no en la velocidad",
-        "¡Excelente ejercicio para fortalecer el core!"
+        "No arquees la espalda, protege tu columna",
+        "Si sientes dolor en la zona lumbar, baja las piernas más lento",
+        "¡Excelente para fortalecer el core inferior!",
+        "Imagina que estás empujando el techo con los pies",
+        "¡Eres un máquina! Cada segundo te acerca a tu objetivo"
     )
 
     private var indiceConsejo = 0
@@ -75,7 +64,7 @@ class LegRaiseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_knee_push_up)
+        setContentView(R.layout.activity_leg_raise)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -83,7 +72,7 @@ class LegRaiseActivity : AppCompatActivity() {
             insets
         }
 
-        // VINCULAR VISTAS (AGREGA ESTOS IDs EN TU LAYOUT SOBRE EL GIF)
+        // VINCULAR VISTAS
         tvTimer = findViewById(R.id.tvTimer)
         tvConsejo = findViewById(R.id.tvConsejo)
         btnIniciar = findViewById(R.id.btnIniciar)

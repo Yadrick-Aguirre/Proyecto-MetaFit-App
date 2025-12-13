@@ -14,24 +14,6 @@ import java.util.concurrent.TimeUnit
 
 class SidePlankActivity : AppCompatActivity() {
 
- /*   override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_side_plank)
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-
-        findViewById<ImageButton>(R.id.btnBack).setOnClickListener {
-            finish()
-        }
-
-    }
-}*/
-
     private lateinit var tvTimer: TextView
     private lateinit var tvConsejo: TextView
     private lateinit var btnIniciar: Button
@@ -55,16 +37,16 @@ class SidePlankActivity : AppCompatActivity() {
     }
 
     private val consejos = listOf(
-        "Mantén el cuerpo en línea recta de cabeza a pies",
-        "Apoya el antebrazo justo debajo del hombro",
-        "Eleva la cadera y mantenla estable",
-        "Contrae el abdomen durante todo el ejercicio",
-        "Aprieta los glúteos para mayor equilibrio",
-        "Mantén el cuello alineado con la columna",
-        "Respira de forma constante, no contengas el aire",
-        "Evita que la cadera caiga hacia el suelo",
-        "Si es difícil, apoya la rodilla inferior",
-        "¡Excelente ejercicio para fortalecer los oblicuos!"
+        "Apóyate en el antebrazo justo debajo del hombro",
+        "Mantén el cuerpo completamente recto, como una tabla",
+        "Eleva la cadera para formar una línea de cabeza a pies",
+        "Contrae fuerte el abdomen y los oblicuos",
+        "Aprieta los glúteos para mayor estabilidad",
+        "Mantén el cuello en línea con la columna",
+        "Respira profundo y constante, no retengas el aire",
+        "No dejes que la cadera caiga hacia el suelo",
+        "Si es muy intenso, apoya la rodilla inferior",
+        "¡Estás esculpiendo un core de acero! Aguanta fuerte"
     )
 
     private var indiceConsejo = 0
@@ -82,7 +64,7 @@ class SidePlankActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_knee_push_up)
+        setContentView(R.layout.activity_side_plank)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -90,7 +72,7 @@ class SidePlankActivity : AppCompatActivity() {
             insets
         }
 
-        // VINCULAR VISTAS (AGREGA ESTOS IDs EN TU LAYOUT SOBRE EL GIF)
+        // VINCULAR VISTAS
         tvTimer = findViewById(R.id.tvTimer)
         tvConsejo = findViewById(R.id.tvConsejo)
         btnIniciar = findViewById(R.id.btnIniciar)
@@ -98,9 +80,10 @@ class SidePlankActivity : AppCompatActivity() {
         btnReiniciar = findViewById(R.id.btnReiniciar)
         btnBack = findViewById(R.id.btnBack)
 
-        // CONSEJO INICIAL
+        // ESTADO INICIAL
         tvConsejo.text = consejos[0]
         tvTimer.text = "00:00:00"
+        btnPausar.isEnabled = false
 
         btnIniciar.setOnClickListener {
             if (!isRunning) {
@@ -116,12 +99,14 @@ class SidePlankActivity : AppCompatActivity() {
 
         btnPausar.setOnClickListener {
             if (isRunning) {
+                // Pausar
                 isRunning = false
                 tiempoPausado += System.currentTimeMillis() - tiempoInicio
                 handler.removeCallbacks(runnableTimer)
                 handler.removeCallbacks(runnableConsejo)
                 btnPausar.text = "Reanudar"
             } else {
+                // Reanudar
                 isRunning = true
                 tiempoInicio = System.currentTimeMillis()
                 handler.post(runnableTimer)

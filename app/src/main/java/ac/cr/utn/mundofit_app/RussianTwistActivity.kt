@@ -14,24 +14,6 @@ import java.util.concurrent.TimeUnit
 
 class RussianTwistActivity : AppCompatActivity() {
 
-  /*  override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_russian_twist)
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-
-        findViewById<ImageButton>(R.id.btnBack).setOnClickListener {
-            finish()
-        }
-
-    }
-}*/
-
     private lateinit var tvTimer: TextView
     private lateinit var tvConsejo: TextView
     private lateinit var btnIniciar: Button
@@ -55,16 +37,16 @@ class RussianTwistActivity : AppCompatActivity() {
     }
 
     private val consejos = listOf(
-        "Mantén la espalda recta durante todo el ejercicio",
-        "Gira el torso de forma controlada, no solo los brazos",
-        "Contrae el abdomen en cada rotación",
-        "Mantén el pecho abierto y los hombros relajados",
-        "Evita balancearte hacia atrás",
-        "Respira de forma constante durante el movimiento",
-        "Si es difícil, apoya los pies en el suelo",
-        "Mantén el core activo para mayor estabilidad",
-        "Realiza el movimiento lento para mayor efectividad",
-        "¡Excelente ejercicio para trabajar los oblicuos!"
+        "Siéntate con las rodillas flexionadas y los pies ligeramente elevados",
+        "Inclina el torso hacia atrás manteniendo la espalda recta (forma una V)",
+        "Junta las manos frente al pecho o sostén un peso/medicina ball",
+        "Gira el torso completamente de un lado al otro tocando el suelo",
+        "Mantén el abdomen siempre contraído y fuerte",
+        "No uses impulso de los brazos, el movimiento viene del core",
+        "Respira: exhala al girar, inhala al volver al centro",
+        "¡El oblicuo está ardiendo! Eso significa que funciona",
+        "Controla el movimiento, la calidad es más importante que la velocidad",
+        "¡Tu cintura se está definiendo con cada giro! Sigue así"
     )
 
     private var indiceConsejo = 0
@@ -82,7 +64,7 @@ class RussianTwistActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_knee_push_up)
+        setContentView(R.layout.activity_russian_twist)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -90,7 +72,7 @@ class RussianTwistActivity : AppCompatActivity() {
             insets
         }
 
-        // VINCULAR VISTAS (AGREGA ESTOS IDs EN TU LAYOUT SOBRE EL GIF)
+        // VINCULAR VISTAS
         tvTimer = findViewById(R.id.tvTimer)
         tvConsejo = findViewById(R.id.tvConsejo)
         btnIniciar = findViewById(R.id.btnIniciar)
@@ -98,9 +80,10 @@ class RussianTwistActivity : AppCompatActivity() {
         btnReiniciar = findViewById(R.id.btnReiniciar)
         btnBack = findViewById(R.id.btnBack)
 
-        // CONSEJO INICIAL
+        // ESTADO INICIAL
         tvConsejo.text = consejos[0]
         tvTimer.text = "00:00:00"
+        btnPausar.isEnabled = false // Importante: deshabilitado al inicio
 
         btnIniciar.setOnClickListener {
             if (!isRunning) {
@@ -116,12 +99,14 @@ class RussianTwistActivity : AppCompatActivity() {
 
         btnPausar.setOnClickListener {
             if (isRunning) {
+                // Pausar
                 isRunning = false
                 tiempoPausado += System.currentTimeMillis() - tiempoInicio
                 handler.removeCallbacks(runnableTimer)
                 handler.removeCallbacks(runnableConsejo)
                 btnPausar.text = "Reanudar"
             } else {
+                // Reanudar
                 isRunning = true
                 tiempoInicio = System.currentTimeMillis()
                 handler.post(runnableTimer)

@@ -14,24 +14,6 @@ import java.util.concurrent.TimeUnit
 
 class OpenPlankActivity : AppCompatActivity() {
 
-   /* override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_open_plank)
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-
-        findViewById<ImageButton>(R.id.btnBack).setOnClickListener {
-            finish()
-        }
-
-    }
-}*/
-
     private lateinit var tvTimer: TextView
     private lateinit var tvConsejo: TextView
     private lateinit var btnIniciar: Button
@@ -55,16 +37,16 @@ class OpenPlankActivity : AppCompatActivity() {
     }
 
     private val consejos = listOf(
-        "Mantén el cuerpo en línea recta de cabeza a talones",
-        "Apoya bien las manos debajo de los hombros",
-        "Contrae el abdomen durante todo el ejercicio",
-        "Aprieta los glúteos para mayor estabilidad",
-        "Evita que la cadera suba o se hunda",
-        "Mira hacia el suelo para mantener el cuello neutro",
-        "Respira de forma constante, no contengas el aire",
-        "Mantén los brazos ligeramente separados para mayor equilibrio",
-        "Si es muy difícil, apoya las rodillas",
-        "¡Excelente ejercicio para fortalecer core, brazos y espalda!"
+        "Mantén el cuerpo completamente recto como una tabla",
+        "Apoya todo el peso en antebrazos y puntas de los pies",
+        "Contrae el abdomen y glúteos para mayor estabilidad",
+        "No dejes que las caderas caigan o suban",
+        "Respira profundo y controlado, no contengas el aire",
+        "Mira hacia el suelo para mantener el cuello alineado",
+        "Aprieta los hombros lejos de las orejas",
+        "¡Excelente para todo el core! Aguanta fuerte",
+        "Si tiemblas, es normal – estás trabajando",
+        "¡Eres un guerrero! Cada segundo cuenta"
     )
 
     private var indiceConsejo = 0
@@ -82,7 +64,7 @@ class OpenPlankActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_knee_push_up)
+        setContentView(R.layout.activity_open_plank)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -90,7 +72,7 @@ class OpenPlankActivity : AppCompatActivity() {
             insets
         }
 
-        // VINCULAR VISTAS (AGREGA ESTOS IDs EN TU LAYOUT SOBRE EL GIF)
+        // VINCULAR VISTAS
         tvTimer = findViewById(R.id.tvTimer)
         tvConsejo = findViewById(R.id.tvConsejo)
         btnIniciar = findViewById(R.id.btnIniciar)

@@ -14,24 +14,6 @@ import java.util.concurrent.TimeUnit
 
 class PushUpActivity : AppCompatActivity() {
 
-   /* override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_push_up)
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-
-        findViewById<ImageButton>(R.id.btnBack).setOnClickListener {
-            finish()
-        }
-
-    }
-}*/
-
     private lateinit var tvTimer: TextView
     private lateinit var tvConsejo: TextView
     private lateinit var btnIniciar: Button
@@ -55,16 +37,16 @@ class PushUpActivity : AppCompatActivity() {
     }
 
     private val consejos = listOf(
-        "Mantén el cuerpo en línea recta de cabeza a talones",
-        "Coloca las manos a la altura de los hombros",
-        "Contrae el abdomen y los glúteos durante el movimiento",
-        "Baja el pecho de forma controlada, sin caer",
-        "Mantén los codos cerca del cuerpo",
-        "Evita arquear la espalda",
+        "Mantén el cuerpo en línea recta desde cabeza hasta talones",
+        "Baja el pecho hasta casi tocar el suelo",
+        "Contrae el abdomen y glúteos durante todo el movimiento",
+        "Mantén los codos a 45° del cuerpo (no los abras)",
         "Respira: baja inhalando, sube exhalando",
-        "Mira ligeramente hacia el suelo para cuidar el cuello",
-        "Si es difícil, apoya las rodillas",
-        "¡Cada repetición te hace más fuerte!"
+        "Mira hacia el suelo para proteger el cuello",
+        "No arquees la espalda ni dejes caer las caderas",
+        "¡Cada flexión te hace más fuerte! Tú puedes",
+        "Si te cansas, haz pausas cortas y continúa",
+        "¡Eres un crack! El cambio viene con la constancia"
     )
 
     private var indiceConsejo = 0
@@ -82,7 +64,7 @@ class PushUpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_knee_push_up)
+        setContentView(R.layout.activity_push_up)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -90,7 +72,7 @@ class PushUpActivity : AppCompatActivity() {
             insets
         }
 
-        // VINCULAR VISTAS (AGREGA ESTOS IDs EN TU LAYOUT SOBRE EL GIF)
+        // VINCULAR VISTAS
         tvTimer = findViewById(R.id.tvTimer)
         tvConsejo = findViewById(R.id.tvConsejo)
         btnIniciar = findViewById(R.id.btnIniciar)

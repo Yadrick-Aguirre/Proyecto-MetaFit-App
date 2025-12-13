@@ -14,24 +14,6 @@ import java.util.concurrent.TimeUnit
 
 class PlankActivity : AppCompatActivity() {
 
- /*   override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_plank)
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-
-        findViewById<ImageButton>(R.id.btnBack).setOnClickListener {
-            finish()
-        }
-
-    }
-}*/
-
     private lateinit var tvTimer: TextView
     private lateinit var tvConsejo: TextView
     private lateinit var btnIniciar: Button
@@ -55,16 +37,16 @@ class PlankActivity : AppCompatActivity() {
     }
 
     private val consejos = listOf(
-        "Mantén el cuerpo en línea recta de cabeza a talones",
-        "Apoya los antebrazos justo debajo de los hombros",
-        "Contrae el abdomen durante todo el ejercicio",
-        "Aprieta los glúteos para mayor estabilidad",
-        "Evita que la cadera suba o se hunda",
-        "Mantén el cuello relajado y la mirada hacia el suelo",
-        "Respira de forma constante, no contengas el aire",
-        "Empuja ligeramente el suelo con los antebrazos",
-        "Si es difícil, apoya las rodillas",
-        "¡Excelente ejercicio para fortalecer todo el core!"
+        "Apóyate en antebrazos y puntas de los pies",
+        "Mantén el cuerpo completamente recto como una tabla",
+        "Contrae fuerte el abdomen durante todo el tiempo",
+        "Aprieta los glúteos para evitar arquear la espalda",
+        "Mantén el cuello alineado, mirando hacia el suelo",
+        "No eleves ni dejes caer las caderas",
+        "Respira profundo y constante, no retengas el aire",
+        "Distribuye el peso uniformemente en antebrazos y pies",
+        "Si es difícil, apoya las rodillas en el suelo al inicio",
+        "¡El plank es el rey del core! Aguanta, estás progresando"
     )
 
     private var indiceConsejo = 0
@@ -82,7 +64,7 @@ class PlankActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_knee_push_up)
+        setContentView(R.layout.activity_plank)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -90,7 +72,7 @@ class PlankActivity : AppCompatActivity() {
             insets
         }
 
-        // VINCULAR VISTAS (AGREGA ESTOS IDs EN TU LAYOUT SOBRE EL GIF)
+        // VINCULAR VISTAS
         tvTimer = findViewById(R.id.tvTimer)
         tvConsejo = findViewById(R.id.tvConsejo)
         btnIniciar = findViewById(R.id.btnIniciar)
@@ -98,9 +80,10 @@ class PlankActivity : AppCompatActivity() {
         btnReiniciar = findViewById(R.id.btnReiniciar)
         btnBack = findViewById(R.id.btnBack)
 
-        // CONSEJO INICIAL
+        // ESTADO INICIAL
         tvConsejo.text = consejos[0]
         tvTimer.text = "00:00:00"
+        btnPausar.isEnabled = false
 
         btnIniciar.setOnClickListener {
             if (!isRunning) {
@@ -116,12 +99,14 @@ class PlankActivity : AppCompatActivity() {
 
         btnPausar.setOnClickListener {
             if (isRunning) {
+                // Pausar
                 isRunning = false
                 tiempoPausado += System.currentTimeMillis() - tiempoInicio
                 handler.removeCallbacks(runnableTimer)
                 handler.removeCallbacks(runnableConsejo)
                 btnPausar.text = "Reanudar"
             } else {
+                // Reanudar
                 isRunning = true
                 tiempoInicio = System.currentTimeMillis()
                 handler.post(runnableTimer)
