@@ -21,4 +21,14 @@
     <string name="EnterWeight">Peso</string>
     <string name="ButtonRegister">Aceptar</string>
     <string name="TextMenu">¿Como Quieres Empezar?</string>
+
+    <string name="TextYes">Sí</string>
+    <string name="TextNo">No</string>
+    <string name="TextTitleDialogQuestion">Confirmación</string>
+    <string name="TextSaveActionQuestion">¿Desea guardar los cambios?</string>
+    <string name="TextDeleteActionQuestion">¿Desea eliminar este usuario?</string>
+    <string name="MsgSaveSuccess">¡Guardado con éxito!</string>
+    <string name="MsgDeleteSuccess">Usuario eliminado correctamente</string>
+    <string name="MsgDuplicateDate">Ya existe un usuario con esta cédula</string>
+    <string name="MsgDataNoFound">Usuario no encontrado</string>
 </resources>

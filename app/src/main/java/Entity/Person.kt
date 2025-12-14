@@ -14,7 +14,19 @@ class Person {
     private var weigth: Int = 0
     private var photo: Bitmap? = null
 
-    // CONSTRUCTOR CON fullLast_name
+    // CONSTRUCTOR VACÍO (ESTE ES EL QUE FALTABA)
+    constructor() {
+        this.id = ""
+        this.name = ""
+        this.fullLast_name = ""
+        this.nacionality = Country("Desconocida") // Ajusta según tu constructor de Country
+        this.birthday = Date(System.currentTimeMillis())
+        this.gender = ""
+        this.weigth = 0
+        this.photo = null
+    }
+
+    // TU CONSTRUCTOR ORIGINAL
     constructor(
         id: String,
         name: String,
@@ -28,7 +40,7 @@ class Person {
         this.id = id
         this.name = name
         this.fullLast_name = fullLast_name
-        this.nacionality = Nacionality
+        this.nacionality = nacionality
         this.birthday = birthday
         this.gender = gender
         this.weigth = weigth
@@ -68,7 +80,6 @@ class Person {
         get() = this.photo
         set(value) { this.photo = value }
 
-    // MÉTODO FullName() CON fullLast_name
     fun FullName(): String {
         return "$name $fullLast_name"
     }

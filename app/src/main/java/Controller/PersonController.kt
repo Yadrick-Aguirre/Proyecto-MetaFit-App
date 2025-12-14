@@ -1,93 +1,113 @@
 package Controller
 
-import Data.IDataManager
-import Data.MemoryDataManager
-import Entity.Country
-import Entity.Person
+import Network.RetrofitClient
+import Models.Users
+import Models.ApiResponse
 import ac.cr.utn.mundofit_app.R
+import Entity.Person
+import Entity.Country
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.util.Base64
+import java.io.ByteArrayOutputStream
+import java.sql.Date
+import java.time.LocalDate
 
-class PersonController {
-    private var dataManager: IDataManager = MemoryDataManager
-    private lateinit var context: Context
+class PersonController(private val context: Context) {
 
-    constructor(context: Context) {
-        this.context = context
-    }
-
-
-    fun addPerson(person: Person) {
+    suspend fun addOrUpdatePerson(person: Person) {
+        val usuario = convertPersonToUsers(person)
         try {
-            dataManager.add(person)
+            val response = RetrofitClient.apiService.guardarUsuario(usuario)
+            if (!response.isSuccessful || response.body()?.success != true) {
+                throw Exception(response.body()?.message ?: "Error al guardar")
+            }
         } catch (e: Exception) {
             throw Exception(context.getString(R.string.ErrorMsgAdd))
         }
     }
 
-    fun updatePerson(person: Person) {
-        try {
-            dataManager.update(person)
-        } catch (e: Exception) {
-            throw Exception(context.getString(R.string.ErrorMsgUpdate))
-        }
-    }
-
-    fun getById(id: String): Person {
-        try {
-            val result = dataManager.getById(id)
-                ?: throw Exception(context.getString(R.string.ErrorMsgDataNoFound))
-            return result
-        } catch (e: Exception) {
-            throw Exception(context.getString(R.string.ErrorMsgGetByid))
-        }
-    }
-
-
-    fun addPhoto(id: String, photo: Bitmap?) {
-        try {
-            val person = dataManager.getById(id)
-            if (person != null) {
-                // Ya existe → actualiza solo la foto
-                updatePhoto(id, photo)
+    suspend fun getById(id: String): Person? {
+        return try {
+            val response = RetrofitClient.apiService.buscarUsuario(id)
+            if (response.isSuccessful && response.body()?.success == true) {
+                response.body()?.usuario?.let { convertUsersToPerson(it) }
             } else {
-                // No existe → crea nueva persona con foto
-                val newPerson = Person(
-                    id = id,
-                    name = "",
-                    fullLast_name = "",
-                    nacionality = Country("Desconocida"),
-                    birthday = java.sql.Date(System.currentTimeMillis()),
-                    gender = "",
-                    weigth = 0,
-                    photo = photo
-                )
-                dataManager.add(newPerson)
+                null
             }
         } catch (e: Exception) {
-            throw Exception(context.getString(R.string.ErrorMsgAddPhoto))
+            null
         }
     }
 
-    fun updatePhoto(id: String, photo: Bitmap?) {
+    suspend fun deletePerson(id: String) {
         try {
-            val success = dataManager.updatePhoto(id, photo)
-            if (!success) {
-                throw Exception(context.getString(R.string.ErrorMsgDataNoFound))
+            val response = RetrofitClient.apiService.eliminarUsuario(id)
+            if (!response.isSuccessful || response.body()?.success != true) {
+                throw Exception(response.body()?.message ?: "Error al eliminar")
             }
         } catch (e: Exception) {
-            throw Exception(context.getString(R.string.ErrorMsgUpdatePhoto))
+            throw Exception(context.getString(R.string.ErrorMsgRemove))
         }
     }
 
-    fun deletePhoto(id: String) {
-        try {
-            val success = dataManager.deletePhoto(id)
-            if (!success) {
-                throw Exception(context.getString(R.string.ErrorMsgDataNoFound))
-            }
-        } catch (e: Exception) {
-            throw Exception(context.getString(R.string.ErrorMsgDeletePhoto))
+    // === CONVERSIÓN TU PERSON ORIGINAL → USERS (para enviar a tu API) ===
+    private fun convertPersonToUsers(person: Person): Users {
+        val fecha = if (person.Birthday != null) {
+            val sqlDate = person.Birthday
+            val epochDay = sqlDate.time / (24 * 60 * 60 * 1000)
+            val localDate = LocalDate.ofEpochDay(epochDay)
+            String.format("%02d/%02d/%04d", localDate.dayOfMonth, localDate.monthValue, localDate.year)
+        } else ""
+
+        return Users(
+            cedula = person.ID,
+            nombre = person.Name,
+            apellidos = person.FullLast_name,
+            nacionalidad = person.Nacionality.toString(), // Usa toString() porque name es private
+            fechaNacimiento = fecha,
+            genero = person.Gender,
+            peso = person.Weigth.toString(),
+            fotoPerfil = person.Photo?.let { bitmapToBase64(it) }
+        )
+    }
+
+    // === CONVERSIÓN USERS → TU PERSON ORIGINAL ===
+    private fun convertUsersToPerson(usuario: Users): Person {
+        // Usamos el constructor vacío que ya tienes
+        val person = Person()
+
+        person.ID = usuario.cedula
+        person.Name = usuario.nombre
+        person.FullLast_name = usuario.apellidos
+        person.Nacionality = Country(usuario.nacionalidad ?: "Desconocida") // Ajusta si Country tiene otro constructor
+        person.Gender = usuario.genero
+        person.Weigth = usuario.peso.toIntOrNull() ?: 0
+
+        // Fecha
+        val parts = usuario.fechaNacimiento.split("/")
+        if (parts.size == 3) {
+            val localDate = LocalDate.of(parts[2].toInt(), parts[1].toInt(), parts[0].toInt())
+            person.Birthday = Date.valueOf(localDate.toString())
         }
+
+        // Foto
+        if (usuario.fotoPerfil != null && usuario.fotoPerfil.isNotEmpty()) {
+            try {
+                val bytes = Base64.decode(usuario.fotoPerfil, Base64.DEFAULT)
+                person.Photo = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+
+        return person
+    }
+
+    private fun bitmapToBase64(bitmap: Bitmap): String {
+        val baos = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos)
+        return Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT)
     }
 }
